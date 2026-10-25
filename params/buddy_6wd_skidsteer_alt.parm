@@ -1,0 +1,62 @@
+# Alternative: pure skid-steer, steering servos centered (or unplugged and pinned).
+# Different motor wiring: each dual FSESC = M1 left + M2 right. MAIN1/3 -> left inputs,
+# MAIN2/4 -> right inputs (Y-cable to the third FSESC). ArduPilot Rover 4.5+.
+FRAME_CLASS     1      # Rover
+FRAME_TYPE      0
+# left side (3 motors) and right side (3 motors), each fed one PWM in parallel
+SERVO1_FUNCTION 73     # ThrottleLeft  -> FSESC #1 (M1) and Y-cable to FSESC #2 (M1)
+SERVO2_FUNCTION 74     # ThrottleRight -> FSESC #1 (M2) and FSESC #2 (M2)
+SERVO3_FUNCTION 73     # ThrottleLeft  -> FSESC #3 (M1)
+SERVO4_FUNCTION 74     # ThrottleRight -> FSESC #3 (M2)
+SERVO1_MIN 1000
+SERVO1_TRIM 1500
+SERVO1_MAX 2000
+SERVO2_MIN 1000
+SERVO2_TRIM 1500
+SERVO2_MAX 2000
+SERVO3_MIN 1000
+SERVO3_TRIM 1500
+SERVO3_MAX 2000
+SERVO4_MIN 1000
+SERVO4_TRIM 1500
+SERVO4_MAX 2000
+MOT_PWM_TYPE    0      # plain PWM, VESCs in PPM mode, 1500 = stopped
+MOT_THR_MAX     60     # 60% until it has driven a few hours
+MOT_SLEWRATE    50
+CRUISE_SPEED    1.0
+CRUISE_THROTTLE 30
+WP_SPEED        1.0
+ATC_TURN_MAX_G  0.3
+# ExpressLRS over CRSF
+SERIAL6_PROTOCOL 23    # CRSF, move if your receiver is on another UART
+RC_PROTOCOLS    1
+MODE_CH         5
+MODE1           0      # MANUAL
+MODE2           0
+MODE3           4      # HOLD
+MODE4           4
+MODE5           15     # GUIDED
+MODE6           11     # RTL
+RC7_OPTION      31     # motor e-stop switch, on top of the physical button
+# ports
+SERIAL1_PROTOCOL 2     # TELEM1: SiK 915 MHz radio
+SERIAL1_BAUD    57
+SERIAL2_PROTOCOL 2     # TELEM2: Raspberry Pi 5
+SERIAL2_BAUD    921
+# failsafes
+FS_ACTION       2      # Hold
+FS_TIMEOUT      1.5
+FS_THR_ENABLE   1      # RC lost
+FS_THR_VALUE    910
+FS_GCS_ENABLE   1      # Pi/GCS heartbeat lost
+FS_CRASH_CHECK  1      # hold if it thinks it crashed
+# battery: 2 to 4x 4S 10 Ah in parallel (modular bay), Holybro power module on POWER1
+BATT_MONITOR    4
+BATT_CAPACITY   20000  # 2 packs. 3 = 30000, 4 = 40000. buddy/rover.py rewrites it from BUDDY_BATT_PACKS
+BATT_LOW_VOLT   13.6
+BATT_CRT_VOLT   13.2
+BATT_FS_LOW_ACT 2      # Hold
+BATT_FS_CRT_ACT 2      # Hold
+# arming
+ARMING_CHECK    1
+ARMING_REQUIRE  1

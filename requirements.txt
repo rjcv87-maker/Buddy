@@ -1,0 +1,8 @@
+pymavlink>=2.4.40
+pyserial>=3.5
+rplidar-roboticia>=0.9.5
+gpiozero>=2.0 ; platform_machine == "aarch64"
+pillow>=10
+opencv-python-headless>=4.8 ; platform_machine == "aarch64"
+# picamera2: sudo apt install python3-picamera2 and make the venv with --system-site-packages
+pytest>=8

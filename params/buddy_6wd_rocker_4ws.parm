@@ -1,0 +1,83 @@
+# Buddy v2.0, rocker-bogie 6WD, steering servo on all four corners. ArduPilot Rover 4.5+.
+# Set up as a normal car (Throttle 70 + GroundSteering 26). All four DS3225 get the same
+# steering signal and the rear pair is reversed, so the back steers opposite the front and the
+# turn radius roughly halves. Middle wheels are fixed. All 6 motors get the same throttle.
+# It can't turn on the spot; if that matters, use buddy_6wd_skidsteer_alt.parm.
+# Wheels in the air first. Set each servo's MIN/TRIM/MAX by hand so the knuckle never hits its stop.
+FRAME_CLASS     1
+FRAME_TYPE      0
+# steering, MAIN 1-4
+SERVO1_FUNCTION 26     # front left
+SERVO2_FUNCTION 26     # front right
+SERVO3_FUNCTION 26     # rear left
+SERVO4_FUNCTION 26     # rear right
+SERVO3_REVERSED 1
+SERVO4_REVERSED 1
+SERVO1_MIN 1100
+SERVO1_TRIM 1500
+SERVO1_MAX 1900
+SERVO2_MIN 1100
+SERVO2_TRIM 1500
+SERVO2_MAX 1900
+SERVO3_MIN 1100
+SERVO3_TRIM 1500
+SERVO3_MAX 1900
+SERVO4_MIN 1100
+SERVO4_TRIM 1500
+SERVO4_MAX 1900
+# throttle, MAIN 5-7: one output per dual FSESC, Y-cable to both of its PPM inputs
+SERVO5_FUNCTION 70
+SERVO6_FUNCTION 70
+SERVO7_FUNCTION 70
+SERVO5_MIN 1000
+SERVO5_TRIM 1500
+SERVO5_MAX 2000
+SERVO6_MIN 1000
+SERVO6_TRIM 1500
+SERVO6_MAX 2000
+SERVO7_MIN 1000
+SERVO7_TRIM 1500
+SERVO7_MAX 2000
+# lights, MAIN 8: RC8 passed straight through to the light_controller
+SERVO8_FUNCTION 58     # RCIN8
+MOT_PWM_TYPE    0
+MOT_THR_MAX     60
+MOT_SLEWRATE    50
+CRUISE_SPEED    1.0
+CRUISE_THROTTLE 30
+WP_SPEED        1.0
+TURN_RADIUS     0.6    # guess from CAD, measure a full-lock circle and fix
+ATC_STR_RAT_MAX 90
+ATC_TURN_MAX_G  0.3
+PIVOT_TURN_ANGLE 0     # no pivot turns, it's not skid-steer
+# ExpressLRS over CRSF
+SERIAL6_PROTOCOL 23
+RC_PROTOCOLS    1
+MODE_CH         5
+MODE1           0
+MODE2           0
+MODE3           4
+MODE4           4
+MODE5           15
+MODE6           11
+RC7_OPTION      31     # motor e-stop switch, on top of the physical button
+# ports
+SERIAL1_PROTOCOL 2
+SERIAL1_BAUD    57
+SERIAL2_PROTOCOL 2
+SERIAL2_BAUD    921
+# failsafes
+FS_ACTION       2
+FS_TIMEOUT      1.5
+FS_THR_ENABLE   1
+FS_THR_VALUE    910
+FS_GCS_ENABLE   1
+FS_CRASH_CHECK  1
+BATT_MONITOR    4
+BATT_CAPACITY   20000  # 2 packs. 3 = 30000, 4 = 40000. buddy/rover.py rewrites it from BUDDY_BATT_PACKS
+BATT_LOW_VOLT   13.6
+BATT_CRT_VOLT   13.2
+BATT_FS_LOW_ACT 2
+BATT_FS_CRT_ACT 2
+ARMING_CHECK    1
+ARMING_REQUIRE  1

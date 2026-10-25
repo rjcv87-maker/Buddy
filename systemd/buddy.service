@@ -1,0 +1,17 @@
+[Unit]
+Description=Buddy rover brain
+After=network-online.target dev-ttyAMA0.device
+Wants=network-online.target
+
+[Service]
+User=buddy
+StateDirectory=buddy
+WorkingDirectory=/opt/buddy
+# BUDDY_ROVER_ID=1, BUDDY_TEAM_KEY=..., anything else from config.py you want to override
+EnvironmentFile=/etc/buddy/env
+ExecStart=/opt/buddy/venv/bin/python -m buddy.main
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

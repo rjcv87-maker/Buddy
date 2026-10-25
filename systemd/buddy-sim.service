@@ -1,0 +1,7 @@
+[Unit]
+Description=Buddy rover - modo simulacion
+
+[Service]
+WorkingDirectory=/opt/buddy
+ExecStart=/opt/buddy/venv/bin/python -m buddy.main --sim
+Restart=on-failure
